@@ -1,0 +1,19 @@
+body {
+  overflow-x: hidden;
+}
+.flex-box {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.weather-main {
+  flex: 1;
+  padding-top: 2rem;
+}
+.weather-secondary {
+  flex: 1;
+  width: 100vw;
+}
+.secondary-info-item {
+  /*display: inline;*/
+}

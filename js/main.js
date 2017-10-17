@@ -1,24 +1,52 @@
-$(document).ready(() => {
-  navigator.geolocation.getCurrentPosition(sucess, geo_error);
+/* eslint-disable */
 
+$(document).ready(() => {
+  navigator.geolocation.getCurrentPosition(success, geoError);
 });
 
 
-const sucess = (position) => {
+const success = (position) => {
   const lat = position.coords.latitude;
   const long = position.coords.longitude;
-  // https://fcc-weather-api.glitch.me/api/current?lat=35&lon=139
-  const api = `https://fcc-weather-api.glitch.me/api/current?lat=${lat}&lon=${long}`
-  $.get(api, (data, status) => {
-    console.log({data, status});
-    const { name } = data;
-    const { country } = data.sys
-    const { temp } = data.main
-    $('.city').text(`${name}, ${country}`);
-    $('.temperature').text(temp)
+  const geocodeAPI = 'http://geocoder.ca/?latt=' + lat + '&longt=' + long + '&reverse=1&allna=1&geoit=xml&corner=1&json=1'
+  const darkskyAPI =`https://api.darksky.net/forecast/1c78397d346738576bfbfae26282ddee/${lat},${long}`;
+
+  // get city
+  $.get(geocodeAPI, (data, status) => {
+    console.log(data);
+    $('.city').html(`${data.city} ${data.prov}`)
   });
-  // console.log(`this is the lat: ${lat}`);
+  // get weather data
+  $.ajax({
+    url: darkskyAPI,
+    dataType: 'jsonp',
+    crossDomain: true,
+  })
+  .done((data) => {
+    console.log('done: ', data);
+    $('.temperature').html(`${Math.floor(data.currently.temperature)}&deg;F`)
+    $('.summary').html(`${data.currently.summary}`)
+    for (let i = 0; i < 4; i++) {
+      const hourlyData = data.hourly.data[i];
+      const time = moment.unix(hourlyData.time).format('ddd h:mm a');
+      const icon = hourlyData.icon;
+      const temp = Math.floor(hourlyData.temperature);
+      // console.log(time)
+      $('.secondary-info').append(`
+        <tr>
+          <td>${time}</td>
+          <td>${icon}</td>
+          <td>${temp}&deg;F</td>
+        </tr>
+        `);
+    }
+  })
+  .fail((xhr) => {
+    console.log('fail: ', xhr);
+  });
+
 };
-const geo_error = () => {
-  console.log('not supported');
+const geoError = () => {
+  // console.log('not supported');
+  $('.city').text('not supported');
 };
