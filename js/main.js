@@ -29,14 +29,45 @@ const success = (position) => {
     for (let i = 0; i < 4; i++) {
       const hourlyData = data.hourly.data[i];
       const time = moment.unix(hourlyData.time).format('ddd h:mm a');
-      const icon = hourlyData.icon;
+      let icon = hourlyData.icon;
+      console.log(icon);
       const temp = Math.floor(hourlyData.temperature);
+      switch (icon) {
+        case 'clear-day':
+          icon = `<i class="wi wi-day-sunny"></i>`;
+          break;
+        case 'clear-night':
+          icon = `<i class="wi wi-night-clear"></i>`;
+          break;
+        case 'rain':
+          icon = `<i class="wi wi-raindrops"></i>`;
+          break;
+        case 'snow':
+          icon = `<i class="wi wi-snow"></i>`;
+          break;
+        case 'sleet':
+          icon = `<i class="wi wi-sleet"></i>`;
+          break;
+        case 'wind':
+          icon = `<i class="wi wi-strong-wind"></i>`;
+          break;
+        case 'fog':
+          icon = `<i class="wi wi-fog"></i>`;
+          break;
+        case 'cloudy':
+        case 'partly-cloudy-day':
+        case 'partly-cloudy-night':
+          icon = `<i class="wi wi-cloudy"></i>`;
+          break;
+        default:
+          icon = `<i class="wi wi-na"></i>`;
+      }
       // console.log(time)
-      $('.secondary-info').append(`
+      $('tbody').append(`
         <tr>
-          <td>${time}</td>
-          <td>${icon}</td>
-          <td>${temp}&deg;F</td>
+          <td class='secondary-info-row table-time'>${time}</td>
+          <td class='secondary-info-row table-icon'>${icon}</td>
+          <td class='secondary-info-row table-temp'>${temp}&deg;F</td>
         </tr>
         `);
     }
