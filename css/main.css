@@ -17,3 +17,13 @@ body {
 .secondary-info-item {
   /*display: inline;*/
 }
+
+.table td.secondary-info-row {
+  vertical-align: middle;
+}
+td.table-time {
+  width: 45%;
+}
+td.table-icon, td.table-temp {
+  width: 27.5%;
+}
