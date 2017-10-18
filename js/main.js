@@ -24,14 +24,17 @@ const success = (position) => {
   })
   .done((data) => {
     console.log('done: ', data);
+    const currentTime = data.currently.time;
+    console.log(moment.unix(currentTime).format('ddd h:mm a'));
     $('.temperature').html(`${Math.floor(data.currently.temperature)}&deg;F`)
     $('.summary').html(`${data.currently.summary}`)
-    for (let i = 0; i < 4; i++) {
+    setBackground(data.currently.icon);
+    for (let i = 1; i < 5; i++) {
       const hourlyData = data.hourly.data[i];
       const time = moment.unix(hourlyData.time).format('ddd h:mm a');
-      let icon = hourlyData.icon;
-      console.log(icon);
       const temp = Math.floor(hourlyData.temperature);
+      let icon = hourlyData.icon;
+
       switch (icon) {
         case 'clear-day':
           icon = `<i class="wi wi-day-sunny"></i>`;
@@ -80,4 +83,32 @@ const success = (position) => {
 const geoError = () => {
   // console.log('not supported');
   $('.city').text('not supported');
+};
+
+const setBackground = (description) => {
+  switch (description) {
+    case 'clear-day':
+      $('.weather-main').css(`background`, `url('../clear-day.jpeg') no-repeat center center`);
+      break;
+    case 'clear-night':
+      $('.weather-main').css(`background`, `url('../clear-night.jpeg') no-repeat bottom center`);
+      break;
+    case 'rain':
+      break;
+    case 'snow':
+      break;
+    case 'sleet':
+      break;
+    case 'wind':
+      break;
+    case 'fog':
+      $('.weather-main').css(`background`, `url('../fog.jpg') no-repeat 50% 65%`);
+      break;
+    case 'cloudy':
+    case 'partly-cloudy-day':
+    case 'partly-cloudy-night':
+      $('.weather-main').css(`background`, `url('../cloudy.jpeg') no-repeat bottom center`);
+      break;
+    default:;
+  }
 };

@@ -1,5 +1,7 @@
 body {
   overflow-x: hidden;
+  color: whitesmoke;
+  font-family: 'Open Sans', sans-serif;
 }
 .flex-box {
   display: flex;
@@ -9,10 +11,24 @@ body {
 .weather-main {
   flex: 1;
   padding-top: 2rem;
+  width: 100%;
+}
+.summary {
+  font-size: 1.7em;
+  font-weight: bolder;
+}
+.city {
+  font-size: 1.4em;
+}
+.temperature {
+  font-size: 5em;
+  font-weight: bold;
 }
 .weather-secondary {
   flex: 1;
   width: 100vw;
+  color: #000000;
+  background-color: white;
 }
 .secondary-info-item {
   /*display: inline;*/
