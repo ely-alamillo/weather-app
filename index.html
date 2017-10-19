@@ -23,16 +23,18 @@
     <!-- custom javascript -->
     <script type="text/javascript" src="js/main.js"></script>
   </head>
-  <body>
+  <body class='body-class'>
+    <div class="loader"></div>
     <div class="flex-box">
-      <div class="container text-center weather-main">
+      <div class="container-fluid text-center weather-main">
+        <p class="time"></p>
         <p class="summary"></p>
         <p class="city"></p>
         <p class="temperature"></p>
         <!-- <button>toggle tmp</button> -->
       </div>
       <div class="container weather-secondary">
-        <p>Hourly</p>
+        <p class="hourly-tab"></p>
         <table class="secondary-info table">
           <tbody>
           </tbody>

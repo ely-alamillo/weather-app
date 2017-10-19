@@ -1,7 +1,13 @@
 /* eslint-disable */
 
 $(document).ready(() => {
-  navigator.geolocation.getCurrentPosition(success, geoError);
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(success, geoError);
+  } else {
+    $('.city').html('Geolocation is not supported by this browser.')
+    $('.body-class').css('background-color', '#3498db');
+  }
+
 });
 
 
@@ -26,6 +32,7 @@ const success = (position) => {
     console.log('done: ', data);
     const currentTime = data.currently.time;
     console.log(moment.unix(currentTime).format('ddd h:mm a'));
+    $('.time').html(moment.unix(currentTime).format('ddd h:mm a'));
     $('.temperature').html(`${Math.floor(data.currently.temperature)}&deg;F`)
     $('.summary').html(`${data.currently.summary}`)
     setBackground(data.currently.icon);
@@ -65,7 +72,17 @@ const success = (position) => {
         default:
           icon = `<i class="wi wi-na"></i>`;
       }
-      // console.log(time)
+      $('.loader').fadeOut(300, () => {
+        $('.time').fadeIn(300);
+        $('.temperature').fadeIn(300);
+        $('.summary').fadeIn(300);
+        $('.city').fadeIn(300);
+        $('.secondary-info').fadeIn(300);
+        $('.flex-box').fadeIn(300);
+        $('.secondary-info').fadeIn(300);
+        $('.weather-secondary').css('background-color', 'whitesmoke')
+      });
+      $('.hourly-tab').html('Hourly');
       $('tbody').append(`
         <tr>
           <td class='secondary-info-row table-time'>${time}</td>
@@ -80,9 +97,18 @@ const success = (position) => {
   });
 
 };
-const geoError = () => {
-  // console.log('not supported');
-  $('.city').text('not supported');
+const geoError = (error) => {
+  if (error.message) {
+    $('.loader').fadeOut(300, () => {
+      $('.city').text(error.message).fadeIn(300);
+      $('.body-class').css('background-color', '#3498db');
+    });
+  } else {
+    $('.loader').fadeOut(300, () => {
+      $('.city').text('Browser not supported').fadeIn(300);
+      $('.body-class').css('background-color', '#3498db');
+    });
+  }
 };
 
 const setBackground = (description) => {
@@ -91,7 +117,8 @@ const setBackground = (description) => {
       $('.weather-main').css(`background`, `url('../clear-day.jpeg') no-repeat center center`);
       break;
     case 'clear-night':
-      $('.weather-main').css(`background`, `url('../clear-night.jpeg') no-repeat bottom center`);
+      $('.weather-main').css({'background': `url('../clear-night.jpeg')
+        no-repeat bottom center`, 'background-size': 'cover'});
       break;
     case 'rain':
       break;
