@@ -14,7 +14,7 @@ $(document).ready(() => {
 const success = (position) => {
   const lat = position.coords.latitude;
   const long = position.coords.longitude;
-  const geocodeAPI = 'http://geocoder.ca/?latt=' + lat + '&longt=' + long + '&reverse=1&allna=1&geoit=xml&corner=1&json=1'
+  const geocodeAPI = 'https://geocoder.ca/?latt=' + lat + '&longt=' + long + '&reverse=1&allna=1&geoit=xml&corner=1&json=1'
   const darkskyAPI =`https://api.darksky.net/forecast/1c78397d346738576bfbfae26282ddee/${lat},${long}`;
 
   // get city

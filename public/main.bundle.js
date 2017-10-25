@@ -14,7 +14,7 @@ $(document).ready(function () {
 var success = function success(position) {
   var lat = position.coords.latitude;
   var long = position.coords.longitude;
-  var geocodeAPI = 'http://geocoder.ca/?latt=' + lat + '&longt=' + long + '&reverse=1&allna=1&geoit=xml&corner=1&json=1';
+  var geocodeAPI = 'https://geocoder.ca/?latt=' + lat + '&longt=' + long + '&reverse=1&allna=1&geoit=xml&corner=1&json=1';
   var darkskyAPI = 'https://api.darksky.net/forecast/1c78397d346738576bfbfae26282ddee/' + lat + ',' + long;
 
   // get city
