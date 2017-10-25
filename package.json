@@ -2,8 +2,9 @@
   "name": "weather-app",
   "version": "1.0.0",
   "description": "simple weather app",
-  "main": "index.html",
+  "main": "public/index.html",
   "scripts": {
+    "babel": "babel js/main.js --out-file public/main.bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +21,12 @@
     "eslint": "^4.9.0",
     "eslint-config-airbnb-base": "^12.0.2",
     "eslint-watch": "^3.1.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "webpack": "^3.8.1"
   }
 }
