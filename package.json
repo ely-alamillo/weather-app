@@ -2,9 +2,9 @@
   "name": "weather-app",
   "version": "1.0.0",
   "description": "simple weather app",
-  "main": "public/index.html",
+  "main": "app.bundle.js",
   "scripts": {
-    "babel": "babel js/main.js --out-file public/main.bundle.js",
+    "babel": "babel js/main.js --out-file public/main.bundle.js && babel app.js --out-file app.bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
