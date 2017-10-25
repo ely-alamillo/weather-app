@@ -19,7 +19,6 @@ const success = (position) => {
 
   // get city
   $.get(geocodeAPI, (data, status) => {
-    console.log(data);
     $('.city').html(`${data.city} ${data.prov}`)
   });
   // get weather data
@@ -29,9 +28,7 @@ const success = (position) => {
     crossDomain: true,
   })
   .done((data) => {
-    console.log('done: ', data);
     const currentTime = data.currently.time;
-    console.log(moment.unix(currentTime).format('ddd h:mm a'));
     $('.time').html(moment.unix(currentTime).format('ddd h:mm a'));
     $('.temperature').html(`${Math.floor(data.currently.temperature)}&deg;F`)
     $('.summary').html(`${data.currently.summary}`)
@@ -93,7 +90,6 @@ const success = (position) => {
     }
   })
   .fail((xhr) => {
-    console.log('fail: ', xhr);
   });
 
 };

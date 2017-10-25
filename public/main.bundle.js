@@ -19,7 +19,6 @@ var success = function success(position) {
 
   // get city
   $.get(geocodeAPI, function (data, status) {
-    console.log(data);
     $('.city').html(data.city + ' ' + data.prov);
   });
   // get weather data
@@ -28,9 +27,7 @@ var success = function success(position) {
     dataType: 'jsonp',
     crossDomain: true
   }).done(function (data) {
-    console.log('done: ', data);
     var currentTime = data.currently.time;
-    console.log(moment.unix(currentTime).format('ddd h:mm a'));
     $('.time').html(moment.unix(currentTime).format('ddd h:mm a'));
     $('.temperature').html(Math.floor(data.currently.temperature) + '&deg;F');
     $('.summary').html('' + data.currently.summary);
@@ -84,9 +81,7 @@ var success = function success(position) {
       $('.hourly-tab').html('Hourly');
       $('tbody').append('\n        <tr>\n          <td class=\'secondary-info-row table-time\'>' + time + '</td>\n          <td class=\'secondary-info-row table-icon\'>' + icon + '</td>\n          <td class=\'secondary-info-row table-temp\'>' + temp + '&deg;F</td>\n        </tr>\n        ');
     }
-  }).fail(function (xhr) {
-    console.log('fail: ', xhr);
-  });
+  }).fail(function (xhr) {});
 };
 var geoError = function geoError(error) {
   if (error.message) {
