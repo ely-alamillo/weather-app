@@ -1,1 +1,1 @@
-# simple local weather app
+# Local weather app
